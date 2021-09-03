@@ -32,10 +32,10 @@ function EmployeeTable(props) {
 
                 <tbody>
                     <tr>
-                      <td>{props.name.first}</td>
-                      <td>{props.location.city}</td>
+                      <td>{props.name}</td>
+                      <td>{props.location}</td>
                       <td>{props.email}</td>
-                      <td>{props.dob.age}</td>
+                      <td>{props.age}</td>
                       <td>{props.phone}</td>   
                     </tr>            
                 </tbody>
@@ -46,4 +46,4 @@ function EmployeeTable(props) {
     );
 }
 
-export default FriendCard;
+export default EmployeeTable;

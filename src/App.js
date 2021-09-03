@@ -12,9 +12,10 @@ function App() {
       {employees.map(employee =>
       <EmployeeTable 
       name={employee.name} 
-      image={employee.image} 
-      occupation={employee.occupation} 
       location={employee.location}
+      email={employee.email}
+      age={employee.age}
+      phone={employee.phone}
       />
       )};           
     </Wrapper>

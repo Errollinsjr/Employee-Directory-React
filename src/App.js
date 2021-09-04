@@ -1,7 +1,6 @@
 import React from "react";
 import Wrapper from "./components/Wrapper";
 import Title from "./components/Title";
-// import TableBody from "./components/TableBody";
 import TableHeader from "./components/TableHeader";
 import axios from "axios";
 
@@ -31,14 +30,15 @@ function App() {
     }
 
     const TableBody = () => {
-      return employees && employees.map(({ id, name, email, phone }) => {
+      return employees && employees.map(({ id, name, email, phone, address }) => {
           return (
               <tr key={id}>
                   <td>{id}</td>
                   <td>{name}</td>
                   <td>{email}</td>
                   <td>{phone}</td>
-                  <td className='opration'>
+                  <td>{address.city}</td>
+                  <td className='deleteOperation'>
                       <button className='button' onClick={() => removeData(id)}>Delete</button>
                   </td>
               </tr>

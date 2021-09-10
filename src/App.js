@@ -6,17 +6,30 @@ import Title from "./components/Title";
 import TableHeader from "./components/TableHeader";
 import axios from "axios";
 
-const URL = 'https://jsonplaceholder.typicode.com/users'
-
 
 function App() {
-  const [employees, setEmployees] = React.useState([])
+  const [allEmployees, setAllEmployees] = React.useState([]);
+  const [employeeList, setEmployeeList] = React.useState([]);
   const [searchTerm, setSearchTerm] = React.useState('');
 
-  
-  const SearchBar = () => <><input value={searchTerm} /><button onClick={} >Search</button></>;
+  const handleChange = (e) => setSearchTerm(e.target.value);
+  const handleClick = () => {
+    
+    if(!searchTerm) {
+      setEmployeeList(allEmployees)
+    } else {
+        const filteredEmployees = allEmployees.filter((employee) => { 
+        const employeeName = employee.name.toLowerCase();
+        const searchedName = searchTerm.toLowerCase();
+          
+        return employeeName.includes(searchedName)
+      });
 
-  
+      setEmployeeList(filteredEmployees)
+    } 
+  };
+
+  // const SearchBar = () => <><input key={"testKey"} onChange={handleChange}  value={searchTerm}/><button onClick={handleClick}>Search</button></>;
 
   // Query the table
   const table = document.getElementById('employee');
@@ -46,21 +59,25 @@ function App() {
  
 
   const getData = async () => {
+      const URL = 'https://jsonplaceholder.typicode.com/users'
       const response = await axios.get(URL)
-      setEmployees(response.data)
+      setAllEmployees(response.data);
+      setEmployeeList(response.data);   
   }
 
  
   const removeData = (id) => {
+      const URL = 'https://jsonplaceholder.typicode.com/users'
       axios.delete(`${URL}/${id}`)
       .then(res => {
-          const del = employees.filter(employee => id !== employee.id)
-          setEmployees(del)
+          const del = allEmployees.filter(employee => id !== employee.id)
+          setAllEmployees(del);
+          setEmployeeList(del);
       })
   }
 
   const TableBody = () => {
-    return employees && employees.map(({ id, name, email, phone, address }) => {
+    return employeeList && employeeList.map(({ id, name, email, phone, address }) => {
         return (
             <tr key={id}>
                 <td>{id}</td>
@@ -86,7 +103,6 @@ function App() {
 
     // const tableBody = table?.querySelector('tbody');
     const rows = tableBody.querySelectorAll('tr'); 
-
     const newRows = Array.from(rows);
 
     // Sort rows by the content of cells
@@ -143,7 +159,7 @@ function App() {
  return (
     <Wrapper>
       <Title>Employee List</Title>
-      <SearchBar />
+      <input key={"testKey"} onChange={handleChange}  value={searchTerm}/><button onClick={handleClick}>Search</button> 
       <table id='employee'>
         <thead>
           <tr onClick={() => console.log(TableHeader)}>{TableHeader()}</tr>

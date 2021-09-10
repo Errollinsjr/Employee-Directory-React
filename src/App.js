@@ -29,8 +29,6 @@ function App() {
     } 
   };
 
-  // const SearchBar = () => <><input key={"testKey"} onChange={handleChange}  value={searchTerm}/><button onClick={handleClick}>Search</button></>;
-
   // Query the table
   const table = document.getElementById('employee');
     React.useEffect(() => {
@@ -40,9 +38,7 @@ function App() {
 
         // Query the headers
         const headers = document.querySelectorAll('th');
-        console.log(table);
-        console.log(headers);
-
+      
         // Loop over the headers
         headers.forEach((header, index) => {
           header.addEventListener('click', function() {
@@ -96,9 +92,6 @@ function App() {
  
 
   const sortColumn = (index) => {
-
-    console.log(index);
-
     const tableBody = document.getElementById('employee').querySelector('tbody');
 
     // const tableBody = table?.querySelector('tbody');
@@ -116,7 +109,6 @@ function App() {
     const a = transform(index, cellA);
     const b = transform(index, cellB);
 
-    console.log(cellA + " --- " + cellB);
       switch (true) {
 
           case a > b: return 1;
@@ -162,7 +154,7 @@ function App() {
       <input key={"testKey"} onChange={handleChange}  value={searchTerm}/><button onClick={handleClick}>Search</button> 
       <table id='employee'>
         <thead>
-          <tr onClick={() => console.log(TableHeader)}>{TableHeader()}</tr>
+          <tr>{TableHeader()}</tr>
         </thead>
         <tbody>
           {TableBody()}

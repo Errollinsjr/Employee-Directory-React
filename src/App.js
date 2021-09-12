@@ -5,6 +5,8 @@ import Wrapper from "./components/Wrapper";
 import Title from "./components/Title";
 import TableHeader from "./components/TableHeader";
 import axios from "axios";
+import SearchBar from "./components/SearchBar";
+import SearchButton from "./components/SearchButton";
 
 
 function App() {
@@ -150,8 +152,13 @@ function App() {
 
  return (
     <Wrapper>
-      <Title>Employee List</Title>
-      <input key={"testKey"} onChange={handleChange}  value={searchTerm}/><button onClick={handleClick}>Search</button> 
+      <SearchBar>
+      <input className="inputForm" key={"uniqueKey"} onChange={handleChange}  value={searchTerm}/>
+      </SearchBar>
+      <SearchButton>
+      <button className="searchButton" onClick={handleClick}>Search</button> 
+      </SearchButton>
+      <Title>Employee List Table</Title>
       <table id='employee'>
         <thead>
           <tr>{TableHeader()}</tr>

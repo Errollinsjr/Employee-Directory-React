@@ -24,13 +24,13 @@ body {
 }
 
 #employee tr:hover {
-  background-color: #ddd;
+  background-color: rgb(255, 255, 255);
 }
 
 #employee th {
   padding: 10px;
   text-align: center;
-  background-color: #4caf50;
+  background-color: #c4c267;
   color: white;
 }
 

@@ -5,6 +5,10 @@ import Wrapper from "./components/Wrapper";
 import Title from "./components/Title";
 import TableHeader from "./components/TableHeader";
 import axios from "axios";
+import SearchBar from "./components/SearchBar";
+import AppContext from "./utils/AppContext";
+import SearchButton from "./components/SearchButton";
+import HandleClick from "./utils/handleClick";
 
 
 function App() {
@@ -13,21 +17,6 @@ function App() {
   const [searchTerm, setSearchTerm] = React.useState('');
 
   const handleChange = (e) => setSearchTerm(e.target.value);
-  const handleClick = () => {
-    
-    if(!searchTerm) {
-      setEmployeeList(allEmployees)
-    } else {
-        const filteredEmployees = allEmployees.filter((employee) => { 
-        const employeeName = employee.name.toLowerCase();
-        const searchedName = searchTerm.toLowerCase();
-          
-        return employeeName.includes(searchedName)
-      });
-
-      setEmployeeList(filteredEmployees)
-    } 
-  };
 
   // Query the table
   const table = document.getElementById('employee');
@@ -150,8 +139,11 @@ function App() {
 
  return (
     <Wrapper>
+      <AppContext.Provider value={{ allEmployees, 
+        setAllEmployees, employeeList, setEmployeeList, searchTerm, setSearchTerm, HandleClick, handleChange }}>
       <Title>Employee List</Title>
-      <input key={"testKey"} onChange={handleChange}  value={searchTerm}/><button onClick={handleClick}>Search</button> 
+      <SearchBar input key={"testKey"} onChange={handleChange}  value={searchTerm} />
+      <SearchButton onClick={HandleClick} value={searchTerm}>Search</SearchButton>
       <table id='employee'>
         <thead>
           <tr>{TableHeader()}</tr>
@@ -159,7 +151,8 @@ function App() {
         <tbody>
           {TableBody()}
         </tbody>
-      </table>          
+      </table>
+      </AppContext.Provider>          
     </Wrapper>
   );
 }
